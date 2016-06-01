@@ -1,0 +1,45 @@
+{
+  "ProjectName": "Progress Exchange 2016 Novo",
+  "ProjectGuid": "5be59ae3-4e2a-4d68-8f56-9ffd6c7c383b",
+  "projectVersion": 1,
+  "AppIdentifier": "com.telerik.ProgressExchange2016Novo",
+  "DisplayName": "Progress Exchange 2016 Novo",
+  "Author": "",
+  "Description": "Progress Exchange 2016 Novo",
+  "BundleVersion": "1.0",
+  "AndroidVersionCode": "1",
+  "iOSDeviceFamily": [
+    "1",
+    "2"
+  ],
+  "iOSBackgroundMode": [],
+  "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
+  "FrameworkVersion": "4.0.0",
+  "AndroidPermissions": [
+    "android.permission.INTERNET"
+  ],
+  "DeviceOrientations": [
+    "Portrait",
+    "Landscape"
+  ],
+  "AndroidHardwareAcceleration": "true",
+  "iOSStatusBarStyle": "Default",
+  "Framework": "Cordova",
+  "WP8TileTitle": "",
+  "WP8Publisher": "",
+  "WP8Capabilities": [
+    "ID_CAP_NETWORKING",
+    "ID_CAP_WEBBROWSERCOMPONENT"
+  ],
+  "WP8Requirements": [],
+  "WP8PublisherID": "{b2f6e4ee-fe06-49a7-bd03-369518789c30}",
+  "WP8ProductID": "{8c4c8209-bb7b-4243-b494-c51b37b75123}",
+  "WPSdk": "8.0",
+  "WP8PackageIdentityName": "1234Telerik.ProgressExchange2016Novo",
+  "WP8WindowsPublisherName": "CN=Telerik",
+  "WP8SupportedResolutions": [
+    "ID_RESOLUTION_WVGA",
+    "ID_RESOLUTION_WXGA",
+    "ID_RESOLUTION_HD720P"
+  ]
+}
