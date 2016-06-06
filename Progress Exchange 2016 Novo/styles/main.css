@@ -166,5 +166,31 @@
 
 /* Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes */
 
+div {
+	-webkit-font-smoothing: antialiased;
+}
+.km-back{
+    background-color: #344762;
+}
+
+.km-flat .km-loader{
+    color: #ff471d;
+}
+
+.km-flat .km-view .km-tabstrip .km-button.km-state-active {
+    background-color: #344762;
+}
+
+.km-flat .km-navbar, .km-flat .k-toolbar, .km-flat .km-detail, .km-flat .km-content {
+    color: #fcfcfc;
+    background-color: #333;
+    background-image: url(./local-progress-exchange.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.km-flat .km-view .km-content .km-list > li {
+    background-color: rgba(0, 100, 180, 0.4);
+}
 
 /* END_CUSTOM_CODE_kendoUiMobileApp */
