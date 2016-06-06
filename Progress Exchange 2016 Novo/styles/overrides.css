@@ -442,21 +442,21 @@
 .km-nova .k-toolbar,
 .km-nova .km-tabstrip,
 .km-nova .km-drawer .km-content {
-  background-image: linear-gradient(to bottom, #296905 0%, #205104 100%);
+  background-image: linear-gradient(to bottom, #58db00 0%, #4ec100 100%);
 }
 .km-nova .km-drawer .km-navbar {
-  background: #102a02;
+  background: #3d9900;
 }
 .km-nova .km-tabstrip .km-button.km-state-active {
-  background-image: linear-gradient(to bottom, #1a4203 0%, #102a02 100%);
+  background-image: linear-gradient(to bottom, #48b200 0%, #3d9900 100%);
 }
 .km-nova #navigation-container .active,
 .km-nova .km-drawer .km-listview li.km-state-active {
-  background: #1a4203;
+  background: #48b200;
 }
 .km-nova .km-touch-scrollbar,
 .km-nova .km-loading-left:before {
-  background: #2d7305;
+  background: #5ce500;
 }
 .km-nova .km-navbar *,
 .km-nova .k-toolbar *,

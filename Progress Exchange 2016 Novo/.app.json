@@ -114,7 +114,7 @@
   "transition": "slide",
   "showMoreTab": false,
   "skin": "nova",
-  "skinMainColor": "#32364c",
-  "skinTextColor": "#ffffff",
-  "skinAccentColor": "#ff4350"
+  "skinMainColor": "#5ce500",
+  "skinTextColor": "#d5d5d8",
+  "skinAccentColor": "#0d5257"
 }
