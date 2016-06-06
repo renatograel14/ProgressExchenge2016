@@ -12,8 +12,9 @@
     <!-- END_CUSTOM_CODE_conferencesModel -->
     <script type="text/x-kendo-template" id="conferencesModelTemplate">
         <div class="image-with-text">
-            <h3><span class="#: data.icon() #"></span>#: data['Name'] #</h3>
-            <p>#: data['Time'] #</p>
+            <h3>#: data['Name'] #</h3>
+            <p><span class="#: data.iconTime() #"></span>#: data['Time'] #</p>
+            <p><span class="#: data.iconPresenter() #"></span>#: data['Presenter'] #</p>
         </div>
     </script>
 </div>

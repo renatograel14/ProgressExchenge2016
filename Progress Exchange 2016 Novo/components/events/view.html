@@ -14,7 +14,7 @@
         <div class="image-with-text">
             <img src="#: data['IconUrl'] #" width="30%" height="30%">
             <h3>#: data['Name'] #</h3>
-            <p>#: data['Date'] #</p>
+            <p><span class="#: data.icon() #"></span>#: kendo.toString(data['Date'], 'D') #</p>
         </div>
     </script>
 </div>

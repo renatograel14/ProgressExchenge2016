@@ -10,6 +10,7 @@
     <script src="cordova.js"></script>
     <script src="kendo/js/jquery.min.js"></script>
     <script src="kendo/js/kendo.mobile.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
     <script src="scripts/identity-provider.js"></script>
     <script src="app.js"></script>
     <script src="bower_components/everlive/min/everlive.all.min.js"></script>
@@ -21,6 +22,7 @@
     <script src="components/events/index.js"></script>
     <script src="components/loginView/index.js"></script>
     <script src="components/home/index.js"></script>
+    <script src="components/location/index.js"></script>
     <div data-role="layout" data-id="main">
         <header data-role="header">
             <div data-role="navbar">
@@ -29,9 +31,11 @@
         </header>
         <footer data-role="footer">
             <div data-role="tabstrip" id="navigation-container">
-                <a href="components/home/view.html" data-icon="home">Progress Exchange 2016</a>
-                <a href="components/conferences/view.html" data-icon="globe">Conferences</a>
-                <a href="components/loginView/view.html?logout=true" data-position="end" data-icon="action">Logout</a></div>
+                <a href="components/home/view.html" data-icon="home">Incrição</a>
+                <a href="components/conferences/view.html" data-icon="conference">Conferencias</a>
+                <a href="components/location/view.html" data-icon="location">Localização</a>
+                <a href="components/loginView/view.html?logout=true" data-position="end" data-icon="action">Sair</a>
+            </div>
         </footer>
     </div>
     <div data-role="layout" data-id="main-nonav">

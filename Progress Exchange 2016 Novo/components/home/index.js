@@ -5,22 +5,30 @@ app.home = kendo.observable({
         if (!app.currentEvent) {
             app.mobileApp.navigate('components/loginView/view.html');
         } else {
-
+            (function (parent) {
+                var event = app.currentEvent,
+                    homeModel = kendo.observable({
+                        currentEvent: event,
+                        openLink: function (url) {
+                            window.open(url, '_system');
+                            if (window.event) {
+                                window.event.preventDefault && window.event.preventDefault();
+                                window.event.returnValue = false;
+                            }
+                        }
+                    });
+                parent.set('homeModel', homeModel);
+            })(app.home);
         }
     },
     afterShow: function () {
-        if (!!app.currentEvent) {
-            $('.km-scroll-wrapper').css('backgroundImage', 'url(' + app.currentEvent.backgroundURL + ')');
-        }
+        // if (!!app.currentEvent) {
+        //     $('.km-content').css('backgroundImage', 'url(' + app.currentEvent.backgroundURL + ')');
+        // }
     }
 });
 
 // START_CUSTOM_CODE_home
 // Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes
-(function (parent) {
-    var homeModel = kendo.observable({
-        event: app.currentEvent
-    });
-    parent.set('homeModel', homeModel);
-})(app.home);
+
 // END_CUSTOM_CODE_home

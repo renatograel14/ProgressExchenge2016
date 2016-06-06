@@ -104,7 +104,11 @@ app.events = kendo.observable({
                         'Icon': {
                             field: 'Icon',
                             defaultValue: ''
-                        },
+                        }
+                    },
+                    icon: function () {
+                        var i = 'calendar';
+                        return kendo.format('km-icon km-{0}', i);
                     }
                 }
             },
@@ -114,21 +118,21 @@ app.events = kendo.observable({
         eventsModel = kendo.observable({
             dataSource: dataSource,
             itemClick: function (e) {
-				var item =  e.dataItem.uid,
+                var item = e.dataItem.uid,
                     dataSource = eventsModel.get('dataSource'),
                     itemModel = dataSource.getByUid(item);
-				if (!itemModel.Name) {
+                if (!itemModel.Name) {
                     itemModel.Name = String.fromCharCode(160);
                 }
                 itemModel.backgroundURL = processImage(itemModel.Background);
                 itemModel.iconURL = processImage(itemModel.Icon);
-                
+
                 app.currentEvent = itemModel;
                 app.mobileApp.navigate('#components/home/view.html');
 
             },
             detailsShow: function (e) {
-                
+
             },
             currentItem: null
         });

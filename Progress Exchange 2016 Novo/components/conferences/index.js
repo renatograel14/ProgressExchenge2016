@@ -96,8 +96,12 @@ app.conferences = kendo.observable({
                             defaultValue: ''
                         },
                     },
-                    icon: function() {
-                        var i = 'globe';
+                    iconTime: function() {
+                        var i = 'time';
+                        return kendo.format('km-icon km-{0}', i);
+                    },
+                    iconPresenter: function(){
+                         var i = 'presenter';
                         return kendo.format('km-icon km-{0}', i);
                     }
                 }
