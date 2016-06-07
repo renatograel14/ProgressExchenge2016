@@ -12,10 +12,7 @@
 .km-nova p {
     color: #32364c;
 }
-.km-nova .km-content {
-    color: #32364c;
-    background-color: #fff;
-}
+
 
 /* Shim */
 
@@ -529,9 +526,8 @@
     text-align: center;
 }
 
-#kendoUiMobileApp .km-content .details-content div,
-#kendoUiMobileApp.km-nova .km-content .details-content div{
-    
+.km-nova .km-content {
+    background-position: right center; /*Positioning*/
 }
 
 /*Custom overrides*/
