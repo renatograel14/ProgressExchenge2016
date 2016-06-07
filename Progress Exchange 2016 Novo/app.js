@@ -41,6 +41,24 @@
             return navigator.connection.type !== 'none';
         }
     };
+    app.sendFeedback = function() {
+		feedback.showFeedback();
+	};
+	
+	document.addEventListener('deviceready', function () {
+		var feedbackOptions = {
+			enableShake: true
+		};
+		try {
+			feedback.initialize('3endia9jhpft7rtk', feedbackOptions);
+		}
+		catch(err) {
+			console.log('Something went wrong:');
+			console.log(err);
+		}
+		navigator.splashscreen.hide();
+	}, false);
+    
 }());
 
 // START_CUSTOM_CODE_kendoUiMobileApp
