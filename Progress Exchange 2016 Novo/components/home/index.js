@@ -22,9 +22,9 @@ app.home = kendo.observable({
         }
     },
     afterShow: function () {
-        // if (!!app.currentEvent) {
-        //     $('.km-content').css('backgroundImage', 'url(' + app.currentEvent.backgroundURL + ')');
-        // }
+        if (!!app.currentEvent) {
+            $('#homeView .km-content').css('backgroundImage', 'url(' + app.currentEvent.backgroundURL + ')');
+        }
     }
 });
 

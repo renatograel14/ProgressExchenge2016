@@ -1,7 +1,9 @@
 'use strict';
 
 app.loginView = kendo.observable({
-    onShow: function() {},
+    onShow: function() {
+        $('.km-content').css('background-color', '#ffffff');
+    },
     afterShow: function() {}
 });
 
