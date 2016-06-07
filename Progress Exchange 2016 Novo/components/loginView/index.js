@@ -1,23 +1,23 @@
 'use strict';
 
 app.loginView = kendo.observable({
-    onShow: function() {
+    onShow: function () {
         $('.km-content').css('background-color', '#ffffff');
     },
-    afterShow: function() {}
+    afterShow: function () {}
 });
 
 // START_CUSTOM_CODE_loginView
 // Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes
 
 // END_CUSTOM_CODE_loginView
-(function(parent) {
+(function (parent) {
     var provider = app.data.progressExchange2016Novo,
         mode = 'signin',
         registerRedirect = 'signin',
         signinRedirect = 'events',
         rememberKey = 'progressExchange2016Novo_authData_loginViewModel',
-        init = function(error) {
+        init = function (error) {
             if (error) {
                 if (error.message) {
                     alert(error.message);
@@ -41,7 +41,7 @@ app.loginView = kendo.observable({
                 parent.loginViewModel.signin();
             }
         },
-        successHandler = function(data) {
+        successHandler = function (data) {
             var redirect = mode === 'signin' ? signinRedirect : registerRedirect,
                 model = parent.loginViewModel || {},
                 logout = model.logout;
@@ -67,18 +67,31 @@ app.loginView = kendo.observable({
                 }
                 app.user = data.result;
 
-                setTimeout(function() {
+                setTimeout(function () {
                     app.mobileApp.navigate('components/' + redirect + '/view.html');
                 }, 0);
             } else {
                 init();
             }
         },
+        updateUserFacebookInfo = function (user, data) {
+            provider.Users.updateSingle({
+                    'Id': user.Id,
+                    'Identity.Facebook': 'Harper Lee'
+                },
+                function (data) {
+                    return;
+                },
+                function (error) {
+                    throw error;
+                });
+        },
         loginViewModel = kendo.observable({
             displayName: '',
             email: '',
             password: '',
-            validateData: function(data) {
+            company: '',
+            validateData: function (data) {
                 if (!data.email) {
                     alert('Missing email');
                     return false;
@@ -91,7 +104,7 @@ app.loginView = kendo.observable({
 
                 return true;
             },
-            signin: function() {
+            signin: function () {
                 var model = loginViewModel,
                     email = model.email.toLowerCase(),
                     password = model.password;
@@ -101,7 +114,7 @@ app.loginView = kendo.observable({
                 }
                 provider.Users.login(email, password, successHandler, init);
             },
-            facebookLogin: function(){
+            facebookLogin: function () {
                 var facebookConfig = {
                     name: 'Facebook',
                     loginMethodName: 'loginWithFacebook',
@@ -119,21 +132,24 @@ app.loginView = kendo.observable({
                 facebook.getAccessToken(function (token) {
                     provider.Users.loginWithFacebook(token).then(function () {
                         app.mobileApp.hideLoading();
-                        provider.Users.currentUser(function(data){
-                            data.result.Identity.Facebook = facebook.getCurrentUser();
+                        provider.Users.currentUser(function (data) {
+                            updateUserFacebookInfo(data.result, facebook.getCurrentUser());
+                            // data.result.Identity.Facebook = facebook.getCurrentUser();
                             successHandler(data);
                         }, init);
                     });
                 });
             },
-            register: function() {
+            register: function () {
                 var model = loginViewModel,
                     email = model.email.toLowerCase(),
                     password = model.password,
                     displayName = model.displayName,
+                    company = model.company,
                     attrs = {
                         Email: email,
-                        DisplayName: displayName
+                        DisplayName: displayName,
+                        Company: company
                     };
 
                 if (!model.validateData(model)) {
@@ -142,17 +158,17 @@ app.loginView = kendo.observable({
 
                 provider.Users.register(email, password, attrs, successHandler, init);
             },
-            toggleView: function() {
+            toggleView: function () {
                 mode = mode === 'signin' ? 'register' : 'signin';
                 init();
             }
         });
 
     parent.set('loginViewModel', loginViewModel);
-    
-    
-    
-    parent.set('afterShow', function(e) {
+
+
+
+    parent.set('afterShow', function (e) {
         if (e && e.view && e.view.params && e.view.params.logout) {
             if (localStorage) {
                 localStorage.setItem(rememberKey, null);

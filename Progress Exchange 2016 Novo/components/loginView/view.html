@@ -45,7 +45,12 @@
                 </li>
                 <li>
                     <label>Name
-                        <input type="text" data-bind="value: loginViewModel.displayName">
+                        <input type="text" data-bind="value: loginViewModel.displayName" required>
+                    </label>
+                </li>
+                <li>
+                    <label>Company
+                        <input type="text" data-bind="value: loginViewModel.company" required>
                     </label>
                 </li>
             </ul>
