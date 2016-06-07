@@ -9,7 +9,9 @@ app.home = kendo.observable({
                 var event = app.currentEvent,
                     homeModel = kendo.observable({
                         currentEvent: event,
-                        openLink: function (url) {
+                        openLink: function () {
+                            var url = event.RegisterLink;
+                            console.log(url);
                             window.open(url, '_system');
                             if (window.event) {
                                 window.event.preventDefault && window.event.preventDefault();
