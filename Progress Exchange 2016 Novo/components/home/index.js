@@ -23,6 +23,7 @@ app.home = kendo.observable({
     },
     afterShow: function () {
         if (!!app.currentEvent) {
+            $("#navbar").data("kendoMobileNavBar").title(app.currentEvent.Name);
             $('#homeView .km-content').css('backgroundImage', 'url(' + app.currentEvent.backgroundURL + ')');
         }
     }

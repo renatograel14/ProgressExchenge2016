@@ -3,10 +3,11 @@
     <header data-role="header">
         <div data-role="navbar" class="header-text">
             <a data-role="backbutton" data-align="left">Back</a>
+            <span data-bind="text: currentItem.Name" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: center; display: block; margin-left: 70px; margin-right: 70px;"></span>
         </div>
     </header>
     <div class="details-content">
-        <h3 data-bind="text: currentItem.Name"></h3>
+        <p data-bind="text: currentItem.Time"></p>
         <p data-bind="text: currentItem.Description"></p>
         <img data-bind="attr: { src: currentItem.PhotoUrl }" width="100%" height="auto">
     </div>

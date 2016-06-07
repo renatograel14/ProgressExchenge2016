@@ -523,14 +523,15 @@
     color: #ffffff;
 }
 #kendoUiMobileApp #homeView .km-content .details-content p,
-#kendoUiMobileApp.km-nova .km-content .details-content h3 {
+#kendoUiMobileApp.km-nova .km-content .details-content h3{
     font-family: Roboto, Arial, Gadget, sans-serif;
     color: #ffffff;
+    text-align: center;
 }
 
 #kendoUiMobileApp .km-content .details-content div,
 #kendoUiMobileApp.km-nova .km-content .details-content div{
-    text-align: justify;
+    
 }
 
 /*Custom overrides*/

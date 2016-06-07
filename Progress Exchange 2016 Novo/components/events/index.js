@@ -126,6 +126,7 @@ app.events = kendo.observable({
                 }
                 itemModel.backgroundURL = processImage(itemModel.Background);
                 itemModel.iconURL = processImage(itemModel.Icon);
+                itemModel.minIconURL = processImage(itemModel.MinIcon);
 
                 app.currentEvent = itemModel;
                 app.mobileApp.navigate('#components/home/view.html');
