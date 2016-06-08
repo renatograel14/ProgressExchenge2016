@@ -67,7 +67,7 @@ app.loginView = kendo.observable({
                 }
                 app.user = data.result;
 				if(!app.user.Verified){
-                    
+                    return init({message: 'Please, check your e-mail for verification' });
                 }
                 setTimeout(function () {
                     app.mobileApp.navigate('components/' + redirect + '/view.html');
