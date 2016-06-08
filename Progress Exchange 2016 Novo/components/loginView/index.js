@@ -13,155 +13,158 @@ app.loginView = kendo.observable({
 // END_CUSTOM_CODE_loginView
 (function (parent) {
     var provider = app.data.progressExchange2016Novo,
-    mode = 'signin',
-    registerRedirect = 'events',
-    signinRedirect = 'events',
-    rememberKey = 'progressExchange2016Novo_authData_loginViewModel',
-    init = function (error) {
-        if (error) {
-            if (error.message) {
-                alert(error.message);
-            }
-            return false;
-        }
-
-        var activeView = mode === 'signin' ? '.signin-view' : '.signup-view';
-
-        if (provider.setup && provider.setup.offlineStorage && !app.isOnline()) {
-            $('.offline').show().siblings().hide();
-        } else {
-            $(activeView).show().siblings().hide();
-        }
-
-        var rememberedData = localStorage ? JSON.parse(localStorage.getItem(rememberKey)) : app[rememberKey];
-        if (rememberedData && rememberedData.email && rememberedData.password) {
-
-            parent.loginViewModel.set('email', rememberedData.email);
-            parent.loginViewModel.set('password', rememberedData.password);
-            parent.loginViewModel.signin();
-        }
-    },
-    successHandler = function (data) {
-        var redirect = mode === 'signin' ? signinRedirect : registerRedirect,
-        model = parent.loginViewModel || {},
-        logout = model.logout;
-
-        if (logout) {
-            model.set('logout', null);
-        }
-        if (data && data.result) {
-            if (logout) {
-                provider.Users.logout(init, init);
-                return;
-            }
-            var rememberedData = {
-                email: model.email,
-                password: model.password
-            };
-            if (model.rememberme && rememberedData.email && rememberedData.password) {
-                if (localStorage) {
-                    localStorage.setItem(rememberKey, JSON.stringify(rememberedData));
-                } else {
-                    app[rememberKey] = rememberedData;
+        mode = 'signin',
+        registerRedirect = 'events',
+        signinRedirect = 'events',
+        rememberKey = 'progressExchange2016Novo_authData_loginViewModel',
+        init = function (error) {
+            if (error) {
+                if (error.message) {
+                    alert(error.message);
                 }
-            }
-            app.user = data.result;
-
-            setTimeout(function () {
-                app.mobileApp.navigate('components/' + redirect + '/view.html');
-            }, 0);
-        } else {
-            init();
-        }
-    },
-    updateUserFacebookInfo = function (user, data) {
-        provider.Users.updateSingle({
-            'Id': user.Id,
-            'Identity.Facebook': data,
-        },
-        function (data) {
-            return;
-        },
-        function (error) {
-            throw error;
-        });
-    },
-    loginViewModel = kendo.observable({
-        displayName: '',
-        email: '',
-        password: '',
-        company: '',
-        validateData: function (data) {
-            if (!data.email) {
-                alert('Missing email');
                 return false;
             }
 
-            if (!data.password) {
-                alert('Missing password');
-                return false;
+            var activeView = mode === 'signin' ? '.signin-view' : '.signup-view';
+
+            if (provider.setup && provider.setup.offlineStorage && !app.isOnline()) {
+                $('.offline').show().siblings().hide();
+            } else {
+                $(activeView).show().siblings().hide();
             }
 
-            return true;
-        },
-        signin: function () {
-            var model = loginViewModel,
-            email = model.email.toLowerCase(),
-            password = model.password;
+            var rememberedData = localStorage ? JSON.parse(localStorage.getItem(rememberKey)) : app[rememberKey];
+            if (rememberedData && rememberedData.email && rememberedData.password) {
 
-            if (!model.validateData(model)) {
-                return false;
+                parent.loginViewModel.set('email', rememberedData.email);
+                parent.loginViewModel.set('password', rememberedData.password);
+                parent.loginViewModel.signin();
             }
-            provider.Users.login(email, password, successHandler, init);
         },
-        facebookLogin: function () {
-            var facebookConfig = {
-                name: 'Facebook',
-                loginMethodName: 'loginWithFacebook',
-                endpoint: 'https://www.facebook.com/dialog/oauth',
-                response_type: 'token',
-                client_id: 1086764318010540,
-                redirect_uri: "http://www.facebook.com/connect/login_success.html",
-                access_type: 'online',
-                scope: 'email,user_posts',
-                display: 'touch'
-            };
+        successHandler = function (data) {
+            var redirect = mode === 'signin' ? signinRedirect : registerRedirect,
+                model = parent.loginViewModel || {},
+                logout = model.logout;
 
-            var facebook = app.facebook = new IdentityProvider(facebookConfig);
-            app.mobileApp.showLoading();
-            facebook.getAccessToken(function (token) {
-                provider.Users.loginWithFacebook(token).then(function () {
-                    app.mobileApp.hideLoading();
-                    provider.Users.currentUser(function (data) {
-                        updateUserFacebookInfo(data.result, facebook.getCurrentUser());
-                        successHandler(data);
-                    }, init);
+            if (logout) {
+                model.set('logout', null);
+            }
+            if (data && data.result) {
+                if (logout) {
+                    provider.Users.logout(init, init);
+                    return;
+                }
+                var rememberedData = {
+                    email: model.email,
+                    password: model.password
+                };
+                if (model.rememberme && rememberedData.email && rememberedData.password) {
+                    if (localStorage) {
+                        localStorage.setItem(rememberKey, JSON.stringify(rememberedData));
+                    } else {
+                        app[rememberKey] = rememberedData;
+                    }
+                }
+                app.user = data.result;
+				if(!app.user.Verified){
+                    
+                }
+                setTimeout(function () {
+                    app.mobileApp.navigate('components/' + redirect + '/view.html');
+                }, 0);
+            } else {
+                init();
+            }
+        },
+        updateUserFacebookInfo = function (user, data) {
+            provider.Users.updateSingle({
+                    'Id': user.Id,
+                    'Identity.Facebook': data,
+                    'Display Name': data.name,
+                },
+                function (data) {
+                    return;
+                },
+                function (error) {
+                    throw error;
                 });
-            });
         },
-        register: function () {
-            var model = loginViewModel,
-            email = model.email.toLowerCase(),
-            password = model.password,
-            displayName = model.displayName,
-            company = model.company,
-            attrs = {
-                Email: email,
-                DisplayName: displayName,
-                Company: company
-            };
+        loginViewModel = kendo.observable({
+            displayName: '',
+            email: '',
+            password: '',
+            company: '',
+            validateData: function (data) {
+                if (!data.email) {
+                    alert('Missing email');
+                    return false;
+                }
 
-            if (!model.validateData(model)) {
-                return false;
+                if (!data.password) {
+                    alert('Missing password');
+                    return false;
+                }
+
+                return true;
+            },
+            signin: function () {
+                var model = loginViewModel,
+                    email = model.email.toLowerCase(),
+                    password = model.password;
+
+                if (!model.validateData(model)) {
+                    return false;
+                }
+                provider.Users.login(email, password, successHandler, init);
+            },
+            facebookLogin: function () {
+                var facebookConfig = {
+                    name: 'Facebook',
+                    loginMethodName: 'loginWithFacebook',
+                    endpoint: 'https://www.facebook.com/dialog/oauth',
+                    response_type: 'token',
+                    client_id: 1086764318010540,
+                    redirect_uri: "http://www.facebook.com/connect/login_success.html",
+                    access_type: 'online',
+                    scope: 'email,user_posts',
+                    display: 'touch'
+                };
+
+                var facebook = app.facebook = new IdentityProvider(facebookConfig);
+                app.mobileApp.showLoading();
+                facebook.getAccessToken(function (token) {
+                    provider.Users.loginWithFacebook(token).then(function () {
+                        app.mobileApp.hideLoading();
+                        provider.Users.currentUser(function (data) {
+                            updateUserFacebookInfo(data.result, facebook.getCurrentUser());
+                            successHandler(data);
+                        }, init);
+                    });
+                });
+            },
+            register: function () {
+                var model = loginViewModel,
+                    email = model.email.toLowerCase(),
+                    password = model.password,
+                    displayName = model.displayName,
+                    company = model.company,
+                    attrs = {
+                        Email: email,
+                        DisplayName: displayName,
+                        Company: company
+                    };
+
+                if (!model.validateData(model)) {
+                    return false;
+                }
+
+                provider.Users.register(email, password, attrs, successHandler, init);
+            },
+            toggleView: function () {
+                mode = mode === 'signin' ? 'register' : 'signin';
+                init();
             }
-
-            provider.Users.register(email, password, attrs, successHandler, init);
-        },
-        toggleView: function () {
-            mode = mode === 'signin' ? 'register' : 'signin';
-            init();
-        }
-    });
+        });
 
     parent.set('loginViewModel', loginViewModel);
 
