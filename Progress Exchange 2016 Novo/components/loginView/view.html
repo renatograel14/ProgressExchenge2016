@@ -1,7 +1,10 @@
-<div data-role="view" data-title="Login Exchange" data-layout="main-login" data-model="app.loginView" data-show="app.loginView.onShow" data-after-show="app.loginView.afterShow">
+<div data-role="view" data-layout="main-login" data-model="app.loginView" data-show="app.loginView.onShow" data-after-show="app.loginView.afterShow">
     <div class="signin-view">
         <form>
-            <ul data-role="listview" data-style="inset">
+            <ul data-role="listview" data-style="inset" >
+                <li>
+                	<img src="resources/progress-events-logo.png" style="display: block; margin: 0 auto;"  width="80%">
+                </li>
                 <li>
                     <label>Email
                         <input type="email" data-bind="value: loginViewModel.email" required autofocus>
@@ -24,8 +27,6 @@
 
                 <a data-role="button" data-bind="events: { click: loginViewModel.toggleView }">Resgistrar</a>
 
-            </div>
-            <div class="button-group button-group-vertical">
                 <a data-role="button" class="primary" data-bind="events: { click: loginViewModel.facebookLogin }">Entrar com Facebook</a>
             </div>
         </form>
